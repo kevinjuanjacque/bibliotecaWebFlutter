@@ -10,7 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int cont = 0;
+  bool candado = true;
+  Icon iconCandado = Icon(Icons.lock);
   final imagesUlr = [
     'https://www.ucentral.cl/ucentral/site/artic/20191216/imag/foto_0000000220191216180600/Sin_titulo-77.jpg',
     'https://www.ucentral.cl/ucentral/site/artic/20130620/imag/foto_0000000320130620110805.jpg',
@@ -35,9 +36,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        drawer: Drawer(
-          child: Icon(Icons.account_circle),
-        ),
+        drawer: _drawerIzquierda(),
         endDrawer: _drawerDerecha());
   }
 
@@ -145,5 +144,109 @@ class _HomePageState extends State<HomePage> {
         )
       ],
     ));
+  }
+
+  Widget _drawerIzquierda() {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 30.0),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(color: Colors.yellowAccent[700]),
+            child: DrawerHeader(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'INICIAR\nSESION',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 35.0),
+                  ),
+                  Icon(
+                    Icons.account_circle,
+                    size: 50.0,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: TextField(
+              keyboardType: TextInputType.numberWithOptions(signed: true),
+              decoration: InputDecoration(
+                  suffixIcon: Icon(
+                    Icons.supervisor_account,
+                    color: Colors.blue[700],
+                  ),
+                  helperText: 'Ejemplo: 12345678-9',
+                  fillColor: Colors.black,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.yellow[700],
+                      ),
+                      borderRadius: BorderRadius.circular(20.0)),
+                  labelText: 'RUT',
+                  labelStyle: TextStyle(color: Colors.black)),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: TextField(
+              obscureText: candado,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    splashColor: Colors.transparent,
+                    icon: iconCandado,
+                    color: Colors.blue[700],
+                    onPressed: () {
+                      setState(() {
+                        if (candado) {
+                          candado = false;
+                          iconCandado = Icon(Icons.lock_open);
+                        } else {
+                          candado = true;
+                          iconCandado = Icon(Icons.lock);
+                        }
+                      });
+                    },
+                  ),
+                  fillColor: Colors.black,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.yellow[700],
+                      ),
+                      borderRadius: BorderRadius.circular(20.0)),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: Colors.black)),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
