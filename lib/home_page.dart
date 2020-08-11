@@ -24,31 +24,42 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         appBar: appBarCommon(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              _swiperImage(),
-              SizedBox(
-                height: 30,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    _buscadorDocument(),
-                    RaisedButton(
-                        color: Colors.yellowAccent[700],
-                        child: Text('Busca!'),
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            Navigator.pushNamed(context, 'busqueda',
-                                arguments: palabraClave);
-                          }
-                        })
-                  ],
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [Color(0xFFFF95000), Color(0xFFF0026FA)],
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _swiperImage(),
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-            ],
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      _buscadorDocument(),
+                      RaisedButton(
+                          color: Colors.yellowAccent[700],
+                          child: Text('Busca!'),
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              Navigator.pushNamed(context, 'busqueda',
+                                  arguments: palabraClave);
+                            }
+                          })
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         drawer: drawer.drawerIzquierda(context),
