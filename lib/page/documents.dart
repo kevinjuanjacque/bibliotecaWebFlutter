@@ -1,3 +1,4 @@
+import 'package:app_flutter/animations/shake_widget.dart';
 import 'package:app_flutter/model/files.dart';
 import 'package:app_flutter/providers/files_provider.dart';
 import 'package:app_flutter/widgets/drawer_lateral.dart';
@@ -43,61 +44,64 @@ class _DocumentsState extends State<Documents> {
     return ListView.builder(
         itemCount: file.length,
         itemBuilder: (context, i) {
-          return Container(
-            width: 150,
-            height: 150,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black45,
-                    spreadRadius: 3,
-                    blurRadius: 1,
-                    offset: Offset(5, 8), // changes position of shadow
+          return ShakeTansitions(
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      spreadRadius: 3,
+                      blurRadius: 1,
+                      offset: Offset(5, 8), // changes position of shadow
+                    ),
+                  ],
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(15.0)),
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  FadeInImage(
+                      fit: BoxFit.fill,
+                      placeholder: AssetImage('assets/30.gif'),
+                      image: NetworkImage(
+                          'https://biblioteca-web-ucen.herokuapp.com/assets/IconoPdf.png')),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            file[i].name,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            file[i].descripcion,
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 15.0),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(15.0)),
-            padding: EdgeInsets.all(10.0),
-            margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                FadeInImage(
-                    fit: BoxFit.fill,
-                    placeholder: AssetImage('assets/30.gif'),
-                    image: NetworkImage(
-                        'https://biblioteca-web-ucen.herokuapp.com/assets/IconoPdf.png')),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          file[i].name,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          file[i].descripcion,
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.black, fontSize: 15.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           );
         });
